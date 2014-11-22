@@ -8,7 +8,10 @@
         <div id="searchGroup" class="searchGroup">
             <input id="city" name="city" type="text" value="" placeholder="City, State">
             <input id="search" type="button" value="{{buttonValue}}" class="search" on-click="{{search}}">
-            <core-ajax url="http://api.openweathermap.org/data/2.5/weather?q={{city}}" on-core-response="{{updateWeather}}"></core-ajax>
+            <core-ajax id="ajax"
+                       url="http://api.openweathermap.org/data/2.5/weather?q={{city}}"
+                       on-core-response="{{updateWeather}}">
+            </core-ajax>
         </div>
         <div id="results" class="results">
         </div>
@@ -21,12 +24,14 @@
                 console.log('click')
                 var city = this.$.city.value
                 if (city) {
-                    this.city = this.$.city.value;
+                    this.city = this.$.city.value
+                    this.$.ajax.go()
                 }
             },
             updateWeather: function(e, data) {
                 var resp = JSON.parse(data.response)
-                this.$.textValue = resp
+                var search = resp.name
+                this.$.results.textContent = JSON.stringify(resp)
             }
         })
     </script>
