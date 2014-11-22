@@ -1,0 +1,18 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+
+<polymer-element name="custom-header" attributes="heading">
+    <template>
+        <link rel="stylesheet" href="custom-header.css">
+        <header id="my-heading">
+            <h1>{{heading}}</h1><div class="logo"></div>
+        </header>
+    </template>
+    <script>
+        Polymer({
+            heading: 'Default Heading',
+            ready: function() {
+                console.log("this", this.$)
+            }
+        });
+    </script>
+</polymer-element>

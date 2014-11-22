@@ -1,0 +1,10 @@
+body {
+    margin: 0;
+    font-family: 'Roboto', 'Helvetica Neue', 'sans-serif';
+}
+
+main {
+    float: right;
+    width: 70%;
+    padding: 10px 0 10px 5%;
+}

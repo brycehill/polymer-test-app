@@ -1,0 +1,22 @@
+{
+  "name": "Polymer-test",
+  "version": "0.0.0",
+  "authors": [
+    "Bryce Hill <bryceahill@gmail.com>"
+  ],
+  "moduleType": [
+    "amd"
+  ],
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "polymer": "Polymer/polymer#~0.5.1"
+  }
+}

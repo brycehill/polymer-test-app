@@ -1,0 +1,33 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="../bower_components/core-ajax/core-ajax.html">
+
+<polymer-element name="my-element">
+    <template>
+        <link rel="stylesheet" href="my-element.css">
+        <h2>Hello. Type your city to get the weather:</h2>
+        <div id="searchGroup" class="searchGroup">
+            <input id="city" name="city" type="text" value="" placeholder="City, State">
+            <input id="search" type="button" value="{{buttonValue}}" class="search" on-click="{{search}}">
+            <core-ajax url="http://api.openweathermap.org/data/2.5/weather?q={{city}}" on-core-response="{{updateWeather}}"></core-ajax>
+        </div>
+        <div id="results" class="results">
+        </div>
+    </template>
+    <script>
+        Polymer({
+            buttonValue: 'Search',
+            resp: '',
+            search: function() {
+                console.log('click')
+                var city = this.$.city.value
+                if (city) {
+                    this.city = this.$.city.value;
+                }
+            },
+            updateWeather: function(e, data) {
+                var resp = JSON.parse(data.response)
+                this.$.textValue = resp
+            }
+        })
+    </script>
+</polymer-element>
