@@ -4,24 +4,51 @@
 <polymer-element name="my-element">
     <template>
         <link rel="stylesheet" href="my-element.css">
-        <h2>Hello. Type your city to get the weather:</h2>
+        <h2>Hello. Type a city to get the current weather:</h2>
         <div id="searchGroup" class="searchGroup">
             <input id="city" name="city" type="text" value="" placeholder="City, State">
             <input id="search" type="button" value="{{buttonValue}}" class="search" on-click="{{search}}">
             <core-ajax id="ajax"
-                       url="http://api.openweathermap.org/data/2.5/weather?q={{city}}"
+                       url="http://api.openweathermap.org/data/2.5/weather?city={{city}}&lat={{lat}}&lon={{long}}&units=imperial"
+                       response="{{resp}}"
                        on-core-response="{{updateWeather}}">
             </core-ajax>
         </div>
         <div id="results" class="results">
+            <div class="row">
+                <span class="label">City:</span>
+                <span class="value">
+                    {{resp.name}}
+                </span>
+            </div>
+            <div class="row">
+                <span class="label">Temp:</span>
+                <span class="value">{{resp.main.temp}}&#8457;</span>
+            </div>
+            <div class="row">
+                <span class="label">Description:</span>
+                <span class="value">{{resp.weather[0].description}}</span>
+            </div>
+
+
         </div>
     </template>
     <script>
         Polymer({
+            lat: 0,
+            long: 0,
+            loading: true,
+            ready: function() {
+                var self = this;
+                navigator.geolocation.getCurrentPosition(function(pos){
+                    self.lat = pos.coords.latitude
+                    self.long = pos.coords.longitude
+                    self.$.ajax.go()
+                })
+            },
             buttonValue: 'Search',
             resp: '',
             search: function() {
-                console.log('click')
                 var city = this.$.city.value
                 if (city) {
                     this.city = this.$.city.value
@@ -29,9 +56,7 @@
                 }
             },
             updateWeather: function(e, data) {
-                var resp = JSON.parse(data.response)
-                var search = resp.name
-                this.$.results.textContent = JSON.stringify(resp)
+                this.resp = JSON.parse(data.response)
             }
         })
     </script>

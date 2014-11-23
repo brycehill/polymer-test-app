@@ -19,3 +19,20 @@ input[type=text] {
     /*line-height: 0;*/
     cursor: pointer;
 }
+.row {
+    display: table-row;
+    font-size: 18px;
+}
+
+.label {
+    display: table-cell;
+    font-weight: bolder;
+
+    margin: 5px;
+    padding: 5px;
+}
+
+.value {
+    display: table-cell;
+    font-weight: lighter;
+}
