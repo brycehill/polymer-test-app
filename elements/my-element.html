@@ -9,7 +9,7 @@
             <input id="city" name="city" type="text" value="" placeholder="City, State">
             <input id="search" type="button" value="{{buttonValue}}" class="search" on-click="{{search}}">
             <core-ajax id="ajax"
-                       url="http://api.openweathermap.org/data/2.5/weather?city={{city}}&lat={{lat}}&lon={{long}}&units=imperial"
+                       url="http://api.openweathermap.org/data/2.5/weather?q={{city}}&lat={{lat}}&lon={{long}}&units=imperial"
                        response="{{resp}}"
                        on-core-response="{{updateWeather}}">
             </core-ajax>
@@ -51,12 +51,16 @@
             search: function() {
                 var city = this.$.city.value
                 if (city) {
+                    this.loading = true
+                    this.lat = null
+                    this.long = null
                     this.city = this.$.city.value
                     this.$.ajax.go()
                 }
             },
             updateWeather: function(e, data) {
                 this.resp = JSON.parse(data.response)
+                this.loading = false
             }
         })
     </script>
